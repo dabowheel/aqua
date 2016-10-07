@@ -1,33 +1,23 @@
-SOURCEDIR = "external"
+SOURCEDIR = external
 BSTRDIR = $(SOURCEDIR)/bstrlib
 CFLAGS = -O3 -Wall -pedantic -ansi -s
 
-all: get linecount hw
+all: linecount hw
 
 # linecount
 linecount: linecount.o in.o mem.o
 	gcc -o linecount linecount.o in.o mem.o
-linecount.o: linecount.c
-	gcc -c linecount.c $(CFLAGS)
-
-# base
-in.o: in.c
-	gcc -c in.c $(CFLAGS)
-mem.o: mem.c
-	gcc -c mem.c $(CFLAGS)
-
 # hw
-hw: hw.o bstrlib.o
+hw: bstrlib.o hw.o
 	gcc -o hw hw.o bstrlib.o
 
-hw.o: hw.c
-	gcc -c hw.c $(CFLAGS)
-
+# bstring
 bstrlib.o:
+	git clone git@github.com:websnarf/bstrlib.git external/bstrlib
 	gcc -c $(BSTRDIR)/bstrlib.c $(CFLAGS)
 
-get:
-	git clone git@github.com:websnarf/bstrlib.git external/bstrlib
+%.o: %.c
+	gcc -c $< $(CFLAGS)
 
 # utilities
 clean:
