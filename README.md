@@ -1,2 +1,2 @@
-# Base C Library
-Aims to be a lightweight base library for C
+# A lightweight C Library
+Aims to be a lightweight C base library when combined with libc.
