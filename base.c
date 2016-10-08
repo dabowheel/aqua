@@ -26,11 +26,13 @@ void *base_realloc(void *ptr, size_t newsize)
     return ptr;
 }
 
-void base_sbreset(base_string_builder b)
+base_string_builder base_sbcreate()
 {
+    base_string_builder b = base_malloc(sizeof(struct base__string_builder__));
     b->data = base_malloc(CHUNK);
     b->len = 0;
     b->mlen = CHUNK;
+    return b;
 }
 
 void base_sbaddchar(base_string_builder b, char c)
@@ -79,9 +81,8 @@ char *base_s2cstr(base_string s)
 
 base_string base_cstr2s(char *cstr)
 {
-    base_string_builder b = base_malloc(sizeof(struct base__string_builder__));
+    base_string_builder b = base_sbcreate();
 
-    base_sbreset(b);
     base_sbaddcstr(b, cstr);
     return base_sb2s(b);
 }
@@ -106,24 +107,20 @@ void base_sdestroy(base_string s)
     }
 }
 
-size_t base_getline(char **lineptr, FILE *fp)
+base_string base_getline(FILE *fp)
 {
     int c;
-    size_t size = CHUNK;
-    int i = 0;
+    base_string_builder b;
 
-    *lineptr = base_malloc(size);
+    b = base_sbcreate();
     while ((c = fgetc(fp)) != EOF) {
-        if (i >= size) {
-            size += CHUNK;
-            *lineptr = base_realloc(*lineptr, size);
-        }
-        (*lineptr)[i++] = c;
+        base_sbaddchar(b, c);
         if (c == '\n')
             break;
     }
-    *lineptr = base_realloc(*lineptr, i+1);
-    (*lineptr)[i] = '\0';
-    return i;
+    if (b->len == 0) {
+        base_sbdestroy(b);
+        return NULL;
+    }
+    return base_sb2s(b);
 }
-

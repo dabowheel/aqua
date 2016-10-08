@@ -1,14 +1,15 @@
 #include <stdio.h>
 
-#define IMPORT_BASE
+#define IMPORT_FROM_BASE
 #include "base.h"
 
 int main()
 {
-    char *line;
+    string s;
     int count = 0;
-    while (getline(&line, stdin)) {
+    while ((s = getline(stdin))) {
         count++;
+        sdestroy(s);
     }
 
     printf("line count is %d\n", count);
