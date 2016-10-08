@@ -1,13 +1,32 @@
 #include <stdio.h>
-#include "external/bstrlib/bstrlib.h"
+#include <bstrlib.h>
+#include "mem.h"
 
 int main()
 {
-    bstring s = bfromcstr("hello bstring");
-    char *cstr = bstr2cstr(s, '\0');
+    bstring s;
+    char *str;
+    bstring s2;
+    bstring s3;
 
-    printf("%s\n", cstr);
+    s = xfromcstr("hello bstring");
+    printf("%s\n", s->data);
+
+    str = xbstr2cstr(s, '\0');
+    printf("%s\n", str);
+
+    s2 = xstrcpy(s);
+    printf("%s\n", s2->data);
+
+    s3 = xfromcstr("abc: ");
+    if (bconcat(s3, s2) == BSTR_ERR)
+        printf("Error\n");
+    else
+        printf("%s\n", s3->data);
+
     bdestroy(s);
-    bcstrfree(cstr);
+    bdestroy(s2);
+    bdestroy(s3);
+    bcstrfree(str);
     return 0;
 }
