@@ -1,4 +1,4 @@
 # Base
-Aims to be a lightweight C base library
+Aims to be a lightweight base library for C
 
 Uses bstring library.
