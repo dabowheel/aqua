@@ -1,8 +1,8 @@
 #include <bstrlib.h>
 
-void fatal(char *error);
-void *xmalloc(size_t size);
-void *xrealloc(void *ptr, size_t newsize);
-bstring xfromcstr(const char *str);
-char *xbstr2cstr(const_bstring s, char z);
-bstring xstrcpy(const_bstring s);
+void base_fatal(char *error);
+void *base_malloc(size_t size);
+void *base_realloc(void *ptr, size_t newsize);
+bstring base_bfromcstr(const char *str);
+char *base_bstr2cstr(const_bstring s, char z);
+bstring base_bstrcpy(const_bstring s);

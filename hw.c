@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <bstrlib.h>
-#include "mem.h"
+#include "base.h"
+#include "import_base.h"
 
 int main()
 {
@@ -9,16 +10,16 @@ int main()
     bstring s2;
     bstring s3;
 
-    s = xfromcstr("hello bstring");
+    s = bfromcstr("hello bstring");
     printf("%s\n", s->data);
 
-    str = xbstr2cstr(s, '\0');
+    str = bstr2cstr(s, '\0');
     printf("%s\n", str);
 
-    s2 = xstrcpy(s);
+    s2 = bstrcpy(s);
     printf("%s\n", s2->data);
 
-    s3 = xfromcstr("abc: ");
+    s3 = bfromcstr("abc: ");
     if (bconcat(s3, s2) == BSTR_ERR)
         printf("Error\n");
     else

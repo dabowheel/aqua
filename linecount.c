@@ -1,10 +1,11 @@
-#include "in.h"
+#include "base.h"
+#include "import_base.h"
 
 int main()
 {
     char *line;
     int count = 0;
-    while (bgetline(&line, stdin)) {
+    while (getline(&line, stdin)) {
         count++;
     }
 

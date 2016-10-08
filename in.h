@@ -1,3 +1,3 @@
 #include <stdio.h>
 
-size_t bgetline(char **lineptr, FILE *fp);
+size_t base_getline(char **lineptr, FILE *fp);
