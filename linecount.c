@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "in.h"
-#include "import_in.h"
+
+#define IMPORT_BASE
+#include "base.h"
 
 int main()
 {
