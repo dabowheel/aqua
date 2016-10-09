@@ -1,6 +1,5 @@
 CFLAGS = -O3 -Wall -pedantic -ansi -s
 INCLUDES =
-
 #all
 all: linecount hw run_examples
 
@@ -23,3 +22,8 @@ hw: hw.o aqua.o
 # clean
 clean:
 	rm -f linecount linecount.o hw hw.o aqua.o run_examples
+
+# test get
+test-get:
+	git clone git@github.com:Snaipe/Criterion.git external/Criterion
+

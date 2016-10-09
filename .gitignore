@@ -4,3 +4,4 @@ hw
 run_examples
 *.o
 examples/*.o
+test/aqua
