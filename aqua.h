@@ -27,7 +27,7 @@ aqua_string aqua_cstr2s(char *cstr);
 void aqua_sblddestroy(aqua_string_builder b);
 void aqua_sdestroy(aqua_string s);
 
-aqua_string aqua_getline(FILE *fp);
+aqua_string aqua_getline(FILE *fp, int *has_term);
 
 #ifdef IMPORT_FROM_AQUA
 
@@ -44,7 +44,7 @@ aqua_string aqua_getline(FILE *fp);
 #define sbld2s aqua_sbld2s
 #define s2cstr aqua_s2cstr
 #define cstr2s aqua_cstr2s
-#define sbdestroy aqua_sblddestroy
+#define sblddestroy aqua_sblddestroy
 #define sdestroy aqua_sdestroy
 
 #define getline aqua_getline

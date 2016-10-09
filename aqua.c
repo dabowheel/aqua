@@ -107,16 +107,19 @@ void aqua_sdestroy(aqua_string s)
     }
 }
 
-aqua_string aqua_getline(FILE *fp)
+aqua_string aqua_getline(FILE *fp, int *has_term)
 {
     int c;
     aqua_string_builder b;
 
+    *has_term = 0;
     b = aqua_sbldcreate();
     while ((c = fgetc(fp)) != EOF) {
         aqua_sbldaddchar(b, c);
-        if (c == '\n')
+        if (c == '\n') {
+            *has_term = 1;
             break;
+        }
     }
     if (b->len == 0) {
         aqua_sblddestroy(b);

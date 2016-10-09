@@ -39,3 +39,12 @@ Test(string_builder, sbldadds) {
     cr_assert(strcmp(cstr, "abc") == 0, "check we can add a string to string builder");
     free(cstr);    
 }
+
+Test(string_builder, sblddestroy)
+{
+    string_builder b;
+
+    b = sbldcreate();
+    sbldaddchar(b, 'x');
+    sblddestroy(b);
+}
