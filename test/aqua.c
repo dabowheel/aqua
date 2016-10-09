@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 #define IMPORT_FROM_AQUA
 #include "../aqua.h"
 #include <criterion/criterion.h>
@@ -47,4 +49,20 @@ Test(string_builder, sblddestroy)
     b = sbldcreate();
     sbldaddchar(b, 'x');
     sblddestroy(b);
+}
+
+Test(getline, test)
+{
+    FILE *fp;
+    int has_term;
+    string s;
+
+    fp = fopen("../LICENSE", "r");
+
+    cr_assert(fp, "should be able to open file");
+
+    s = getline(fp, &has_term);
+    cr_assert(has_term, "should have line termination character");
+    cr_assert(strcmp(s->data, "The MIT License (MIT)\n") == 0, "should get the first line");
+    sdestroy(s);
 }
