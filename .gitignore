@@ -1,6 +1,5 @@
 external
 linecount
-hw
 run_examples
 *.o
 examples/*.o

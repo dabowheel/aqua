@@ -21,8 +21,3 @@ linecount.o: examples/linecount.c
 # clean
 clean:
 	rm -f linecount linecount.o aqua.o run_examples
-
-# test get
-test-get:
-	git clone git@github.com:Snaipe/Criterion.git external/Criterion
-
