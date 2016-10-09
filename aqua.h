@@ -17,14 +17,14 @@ typedef struct aqua__string_builder__ {
     unsigned int mlen;
 } *aqua_string_builder;
 
-aqua_string_builder aqua_sbcreate();
-void aqua_sbaddchar(aqua_string_builder b, char c);
-void aqua_sbaddcstr(aqua_string_builder b, char *str);
-void aqua_sbadds(aqua_string_builder b, aqua_string s);
-aqua_string aqua_sb2s(aqua_string_builder b);
+aqua_string_builder aqua_sbldcreate();
+void aqua_sbldaddchar(aqua_string_builder b, char c);
+void aqua_sbldaddcstr(aqua_string_builder b, char *str);
+void aqua_sbldadds(aqua_string_builder b, aqua_string s);
+aqua_string aqua_sbld2s(aqua_string_builder b);
 char *aqua_s2cstr(aqua_string s);
 aqua_string aqua_cstr2s(char *cstr);
-void aqua_sbdestroy(aqua_string_builder b);
+void aqua_sblddestroy(aqua_string_builder b);
 void aqua_sdestroy(aqua_string s);
 
 aqua_string aqua_getline(FILE *fp);
@@ -37,14 +37,14 @@ aqua_string aqua_getline(FILE *fp);
 
 #define string aqua_string
 #define string_builder aqua_string_builder
-#define sbcreate aqua_sbcreate
-#define sbaddchar aqua_sbaddchar
-#define sbaddcstr aqua_sbaddcstr
-#define sbadds aqua_sbadds
-#define sb2s aqua_sb2s
+#define sbldcreate aqua_sbldcreate
+#define sbldaddchar aqua_sbldaddchar
+#define sbldaddcstr aqua_sbldaddcstr
+#define sbldadds aqua_sbldadds
+#define sbld2s aqua_sbld2s
 #define s2cstr aqua_s2cstr
 #define cstr2s aqua_cstr2s
-#define sbdestroy aqua_sbdestroy
+#define sbdestroy aqua_sblddestroy
 #define sdestroy aqua_sdestroy
 
 #define getline aqua_getline

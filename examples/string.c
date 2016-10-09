@@ -19,12 +19,12 @@ void ex2()
     char *cstr;
 
     printf("ex2\n");
-    b = sbcreate();
-    sbaddchar(b, 'a');
-    sbaddcstr(b, "bc");
+    b = sbldcreate();
+    sbldaddchar(b, 'a');
+    sbldaddcstr(b, "bc");
     s2 = cstr2s("de");
-    sbadds(b, s2);
-    s = sb2s(b);
+    sbldadds(b, s2);
+    s = sbld2s(b);
     printf("%s\n", s->data);
     cstr = s2cstr(s);
     printf("%s\n", cstr);

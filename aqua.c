@@ -26,7 +26,7 @@ void *aqua_realloc(void *ptr, size_t newsize)
     return ptr;
 }
 
-aqua_string_builder aqua_sbcreate()
+aqua_string_builder aqua_sbldcreate()
 {
     aqua_string_builder b = aqua_malloc(sizeof(struct aqua__string_builder__));
     b->data = aqua_malloc(CHUNK);
@@ -35,7 +35,7 @@ aqua_string_builder aqua_sbcreate()
     return b;
 }
 
-void aqua_sbaddchar(aqua_string_builder b, char c)
+void aqua_sbldaddchar(aqua_string_builder b, char c)
 {
     if(b->len + 1 > b->mlen) {
         b->mlen += CHUNK;
@@ -44,29 +44,29 @@ void aqua_sbaddchar(aqua_string_builder b, char c)
     b->data[b->len++] = c;
 }
 
-void aqua_sbaddcstr(aqua_string_builder b, char *str)
+void aqua_sbldaddcstr(aqua_string_builder b, char *str)
 {
     while (*str) {
-        aqua_sbaddchar(b, *str);
+        aqua_sbldaddchar(b, *str);
         str++;
     }
 }
 
-void aqua_sbadds(aqua_string_builder b, aqua_string s)
+void aqua_sbldadds(aqua_string_builder b, aqua_string s)
 {
     char *cstr;
     cstr = aqua_s2cstr(s);
-    aqua_sbaddcstr(b, cstr);
+    aqua_sbldaddcstr(b, cstr);
 }
 
-aqua_string aqua_sb2s(aqua_string_builder b)
+aqua_string aqua_sbld2s(aqua_string_builder b)
 {
     aqua_string s = aqua_malloc(sizeof(struct aqua__string__));
     s->len = b->len;
-    aqua_sbaddchar(b, '\0');
+    aqua_sbldaddchar(b, '\0');
     s->data = b->data;
     b->data = NULL;
-    aqua_sbdestroy(b);
+    aqua_sblddestroy(b);
     return s;
 }
 
@@ -81,13 +81,13 @@ char *aqua_s2cstr(aqua_string s)
 
 aqua_string aqua_cstr2s(char *cstr)
 {
-    aqua_string_builder b = aqua_sbcreate();
+    aqua_string_builder b = aqua_sbldcreate();
 
-    aqua_sbaddcstr(b, cstr);
-    return aqua_sb2s(b);
+    aqua_sbldaddcstr(b, cstr);
+    return aqua_sbld2s(b);
 }
 
-void aqua_sbdestroy(aqua_string_builder b)
+void aqua_sblddestroy(aqua_string_builder b)
 {
     if (b) {
         if (b->data) {
@@ -112,15 +112,15 @@ aqua_string aqua_getline(FILE *fp)
     int c;
     aqua_string_builder b;
 
-    b = aqua_sbcreate();
+    b = aqua_sbldcreate();
     while ((c = fgetc(fp)) != EOF) {
-        aqua_sbaddchar(b, c);
+        aqua_sbldaddchar(b, c);
         if (c == '\n')
             break;
     }
     if (b->len == 0) {
-        aqua_sbdestroy(b);
+        aqua_sblddestroy(b);
         return NULL;
     }
-    return aqua_sb2s(b);
+    return aqua_sbld2s(b);
 }

@@ -8,3 +8,6 @@ aqua: aqua.o
 
 aqua.o: aqua.c
 	gcc -c aqua.c $(CFLAGS)
+
+clean:
+	rm -f aqua.o aqua
