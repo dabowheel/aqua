@@ -1,12 +1,16 @@
 CFLAGS = -O3 -Wall -pedantic -s
+CC = gcc
 
-#all
+# UNIX
 all: aqua.o
-
-# c files
-%.o: %.c
-	gcc -c $< $(CFLAGS)
-
-# clean
+aqua.o: aqua.c
+	$(CC) -c aqua.c $(CFLAGS)
 clean:
 	rm -f aqua.o
+
+# Windows
+win: aqua.obj
+aqua.obj:
+	cl -c aqua.c
+winclean:
+	del aqua.obj
