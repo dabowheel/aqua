@@ -1,6 +1,4 @@
 external
-wc
-string
 *.o
 *.obj
 test/aqua
