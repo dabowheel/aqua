@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #define IMPORT_FROM_AQUA
-#include "aqua.h"
+#include "../aqua.h"
 
 int main()
 {

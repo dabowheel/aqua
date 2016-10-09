@@ -1,7 +1,7 @@
 CFLAGS = -O3 -Wall -pedantic -ansi -s
-INCLUDES =
+
 #all
-all: linecount hw run_examples
+all: linecount run_examples
 
 # examples
 run_examples: examples/string.o
@@ -11,17 +11,16 @@ run_examples: examples/string.o
 linecount: linecount.o aqua.o
 	gcc -o linecount linecount.o aqua.o
 
-# hw
-hw: hw.o aqua.o
-	gcc -o hw hw.o aqua.o
+linecount.o: examples/linecount.c
+	gcc -c examples/linecount.c $(CFLAGS)
 
 # c files
 %.o: %.c
-	gcc -c $< $(CFLAGS) $(INCLUDES)
+	gcc -c $< $(CFLAGS)
 
 # clean
 clean:
-	rm -f linecount linecount.o hw hw.o aqua.o run_examples
+	rm -f linecount linecount.o aqua.o run_examples
 
 # test get
 test-get:
