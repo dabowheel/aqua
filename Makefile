@@ -1,18 +1,7 @@
-CFLAGS = -O3 -Wall -pedantic -ansi -s
+CFLAGS = -O3 -Wall -pedantic -s
 
 #all
-all: linecount run_examples
-
-# examples
-run_examples: examples/string.o
-	gcc -o run_examples string.o aqua.o
-
-# linecount
-linecount: linecount.o aqua.o
-	gcc -o linecount linecount.o aqua.o
-
-linecount.o: examples/linecount.c
-	gcc -c examples/linecount.c $(CFLAGS)
+all: aqua.o
 
 # c files
 %.o: %.c
@@ -20,4 +9,4 @@ linecount.o: examples/linecount.c
 
 # clean
 clean:
-	rm -f linecount linecount.o aqua.o run_examples
+	rm -f aqua.o

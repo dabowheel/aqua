@@ -1,6 +1,5 @@
 external
-linecount
-run_examples
+wc
+string
 *.o
-examples/*.o
 test/aqua
