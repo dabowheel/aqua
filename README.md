@@ -21,3 +21,6 @@ Aims to be a lightweight C base library when combined with libc.
     cd test
     make
     make run
+### Windows
+    cd Debug
+    AquaTest

@@ -26,7 +26,10 @@ uninstall:
 win:
 	set ExternalCompilerOptions=/DWINAPI
 	msbuild aqua.sln /p:Configuration=Debug /p:Platform=X86
+	copy external\Criterion\build\Debug\criterion.dll Debug
 winclean:
 	if exist Debug rmdir /s /q Debug
 	if exist examples\string\Debug rmdir /s /q examples\string\Debug
 	if exist examples\wc\Debug rmdir /s /q examples\wc\Debug
+	if exist test\Debug rmdir /s /q test\Debug
+	

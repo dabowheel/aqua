@@ -17,16 +17,3 @@ clean:
 	rm -rf ../external/Criterion
 run:
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../external/Criterion/build:.. ./main
-
-# WINDOWS
-win: winget main.exe
-winget:
-	if not exist ../external/Criterion git clone git@github.com:Snaipe/Criterion.git ../external/Criterion
-	if not exist ../external/Criterion/build cd ../external/Criterion && mkdir build && cd build && cmake .. && cmake --build .
-main.exe: main.c
-	msbuild /p:Configuration=Debug /p:Platform=X86
-	copy Debug\AquaTest.exe main.exe
-	copy ..\external\Criterion\build\Debug\criterion.dll criterion.dll
-winclean:
-	del *.obj *.exe *.dll
-	rmdir /S /Q Debug
