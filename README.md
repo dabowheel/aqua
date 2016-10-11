@@ -24,3 +24,6 @@ Aims to be a lightweight C base library when combined with libc.
 ### Windows
     cd Debug
     AquaTest
+
+## License
+GNU Lesser General Public License Version 3 or any later version
