@@ -24,7 +24,7 @@ uninstall:
 # Windows
 win:
 	set ExternalCompilerOptions=/DWINAPI
-	msbuild LibAqua.sln /p:Configuration=Debug /p:Platform=X86
+	msbuild aqua.sln /p:Configuration=Debug /p:Platform=X86
 winclean:
 	if exist Debug rmdir /s /q Debug
 	if exist examples\string\Debug rmdir /s /q examples\string\Debug
