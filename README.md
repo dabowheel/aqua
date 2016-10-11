@@ -7,6 +7,6 @@ Aims to be a lightweight C base library when combined with libc.
 ## Setup
 ### Unix
     make
-    make install
+    sudo make install
 ### Windows
     nmake win
