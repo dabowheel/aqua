@@ -3,3 +3,4 @@ external
 *.obj
 test/aqua
 *.so.*
+Debug

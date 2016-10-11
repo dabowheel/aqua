@@ -22,8 +22,8 @@ uninstall:
 	rm -f $(installpath)/include/aqua.h
 
 # Windows
-win: aqua.obj
-aqua.obj:
-	cl -c aqua.c
+win: aqua.dll
+aqua.dll:
+	msbuild LibAqua.sln /p:Configuration=Debug /p:Platform=X86
 winclean:
-	del aqua.obj
+	rmdir /s /q Debug || rmdir /s /q examples\Debug
