@@ -7,9 +7,9 @@
 #define EXPORT
 #endif
 
-void aqua_fatal(char *error);
-void *aqua_malloc(size_t size);
-void *aqua_realloc(void *ptr, size_t newsize);
+EXPORT void aqua_fatal(char *error);
+EXPORT void *aqua_malloc(size_t size);
+EXPORT void *aqua_realloc(void *ptr, size_t newsize);
 
 typedef struct aqua__string__ {
     char *data;
@@ -22,14 +22,14 @@ typedef struct aqua__string_builder__ {
     unsigned int mlen;
 } *aqua_string_builder;
 
-aqua_string_builder aqua_sbldcreate();
-void aqua_sbldaddchar(aqua_string_builder b, char c);
-void aqua_sbldaddcstr(aqua_string_builder b, char *str);
-void aqua_sbldadds(aqua_string_builder b, aqua_string s);
-aqua_string aqua_sbld2s(aqua_string_builder b);
-char *aqua_s2cstr(aqua_string s);
-aqua_string aqua_cstr2s(char *cstr);
-void aqua_sblddestroy(aqua_string_builder b);
+EXPORT aqua_string_builder aqua_sbldcreate();
+EXPORT void aqua_sbldaddchar(aqua_string_builder b, char c);
+EXPORT void aqua_sbldaddcstr(aqua_string_builder b, char *str);
+EXPORT void aqua_sbldadds(aqua_string_builder b, aqua_string s);
+EXPORT aqua_string aqua_sbld2s(aqua_string_builder b);
+EXPORT char *aqua_s2cstr(aqua_string s);
+EXPORT aqua_string aqua_cstr2s(char *cstr);
+EXPORT void aqua_sblddestroy(aqua_string_builder b);
 EXPORT void aqua_sdestroy(aqua_string s);
 
 EXPORT aqua_string aqua_getline(FILE *fp, int *has_term);

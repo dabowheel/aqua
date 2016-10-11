@@ -3,13 +3,13 @@
 #define OUT_OF_MEMORY "Out of memory"
 #define CHUNK 100
 
-void aqua_fatal(char *error)
+EXPORT void aqua_fatal(char *error)
 {
     printf("%s\n", error);
     exit(1);
 }
 
-void *aqua_malloc(size_t size)
+EXPORT void *aqua_malloc(size_t size)
 {
     void *p;
     p = malloc(size);
@@ -18,7 +18,7 @@ void *aqua_malloc(size_t size)
     return p;
 }
 
-void *aqua_realloc(void *ptr, size_t newsize)
+EXPORT void *aqua_realloc(void *ptr, size_t newsize)
 {
     ptr = realloc(ptr, newsize);
     if (!ptr)
@@ -26,7 +26,7 @@ void *aqua_realloc(void *ptr, size_t newsize)
     return ptr;
 }
 
-aqua_string_builder aqua_sbldcreate()
+EXPORT aqua_string_builder aqua_sbldcreate()
 {
     aqua_string_builder b = aqua_malloc(sizeof(struct aqua__string_builder__));
     b->data = aqua_malloc(CHUNK);
@@ -35,7 +35,7 @@ aqua_string_builder aqua_sbldcreate()
     return b;
 }
 
-void aqua_sbldaddchar(aqua_string_builder b, char c)
+EXPORT void aqua_sbldaddchar(aqua_string_builder b, char c)
 {
     if(b->len + 1 > b->mlen) {
         b->mlen += CHUNK;
@@ -44,7 +44,7 @@ void aqua_sbldaddchar(aqua_string_builder b, char c)
     b->data[b->len++] = c;
 }
 
-void aqua_sbldaddcstr(aqua_string_builder b, char *str)
+EXPORT void aqua_sbldaddcstr(aqua_string_builder b, char *str)
 {
     while (*str) {
         aqua_sbldaddchar(b, *str);
@@ -52,14 +52,14 @@ void aqua_sbldaddcstr(aqua_string_builder b, char *str)
     }
 }
 
-void aqua_sbldadds(aqua_string_builder b, aqua_string s)
+EXPORT void aqua_sbldadds(aqua_string_builder b, aqua_string s)
 {
     char *cstr;
     cstr = aqua_s2cstr(s);
     aqua_sbldaddcstr(b, cstr);
 }
 
-aqua_string aqua_sbld2s(aqua_string_builder b)
+EXPORT aqua_string aqua_sbld2s(aqua_string_builder b)
 {
     aqua_string s = aqua_malloc(sizeof(struct aqua__string__));
     s->len = b->len;
@@ -70,7 +70,7 @@ aqua_string aqua_sbld2s(aqua_string_builder b)
     return s;
 }
 
-char *aqua_s2cstr(aqua_string s)
+EXPORT char *aqua_s2cstr(aqua_string s)
 {
     char *cstr;
     cstr = s->data;
@@ -79,7 +79,7 @@ char *aqua_s2cstr(aqua_string s)
     return cstr;
 }
 
-aqua_string aqua_cstr2s(char *cstr)
+EXPORT aqua_string aqua_cstr2s(char *cstr)
 {
     aqua_string_builder b = aqua_sbldcreate();
 
@@ -87,7 +87,7 @@ aqua_string aqua_cstr2s(char *cstr)
     return aqua_sbld2s(b);
 }
 
-void aqua_sblddestroy(aqua_string_builder b)
+EXPORT void aqua_sblddestroy(aqua_string_builder b)
 {
     if (b) {
         if (b->data) {

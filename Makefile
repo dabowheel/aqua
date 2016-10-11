@@ -22,9 +22,10 @@ uninstall:
 	rm -f $(installpath)/include/aqua.h
 
 # Windows
-win: aqua.dll
-aqua.dll:
+win:
 	set ExternalCompilerOptions=/DWINAPI
 	msbuild LibAqua.sln /p:Configuration=Debug /p:Platform=X86
 winclean:
-	rmdir /s /q Debug || rmdir /s /q examples\Debug
+	if exist Debug rmdir /s /q Debug
+	if exist examples\string\Debug rmdir /s /q examples\string\Debug
+	if exist examples\wc\Debug rmdir /s /q examples\wc\Debug

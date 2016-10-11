@@ -13,10 +13,3 @@ string: string.o
 	gcc -c $< $(CFLAGS)
 clean:
 	rm wc string *.o
-
-# Windows
-win: wc.exe
-wc.exe: wc.c
-	msbuild MyProgram.vcxproj /p:Configuration=Debug /p:Platform=X86
-winclean:
-	rmdir /s /q Debug
