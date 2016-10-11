@@ -8,13 +8,13 @@ installpath = /usr/local
 all: libaqua.so
 aqua.o: aqua.c
 	$(CC) -c -fPIC aqua.c $(CFLAGS)
-libaqua.so.$(version): aqua.o
-	$(CC) -shared -Wl,-soname,libaqua.so.1 -o libaqua.so.$(version) aqua.o
+libaqua.so: aqua.o
+	$(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so aqua.o
 clean:
-	rm -f aqua.o libaqua.so.*
+	rm -f aqua.o libaqua.so*
 install:
-	cp libaqua.so.$(version) $(installpath)/lib
-	cd $(installpath)/lib; ln -s libaqua.so.$(version) libaqua.so.$(majorversion)
+	cp libaqua.so $(installpath)/lib/libaqua.so.$(version)
+	cd $(installpath)/lib; ln -s -f libaqua.so.$(version) libaqua.so
 	cp aqua.h $(installpath)/include
 uninstall:
 	rm -f $(installpath)/lib/libaqua.so.1

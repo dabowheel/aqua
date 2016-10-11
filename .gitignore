@@ -2,5 +2,5 @@ external
 *.o
 *.obj
 test/aqua
-*.so.*
+libaqua.so
 Debug

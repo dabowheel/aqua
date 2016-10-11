@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define EXPORT __declspec (dllexport)
-
 void aqua_fatal(char *error);
 void *aqua_malloc(size_t size);
 void *aqua_realloc(void *ptr, size_t newsize);
@@ -26,9 +24,9 @@ aqua_string aqua_sbld2s(aqua_string_builder b);
 char *aqua_s2cstr(aqua_string s);
 aqua_string aqua_cstr2s(char *cstr);
 void aqua_sblddestroy(aqua_string_builder b);
-EXPORT void aqua_sdestroy(aqua_string s);
+void aqua_sdestroy(aqua_string s);
 
-EXPORT aqua_string aqua_getline(FILE *fp, int *has_term);
+aqua_string aqua_getline(FILE *fp, int *has_term);
 
 #ifdef IMPORT_FROM_AQUA
 

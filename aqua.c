@@ -97,7 +97,7 @@ void aqua_sblddestroy(aqua_string_builder b)
     }
 }
 
-EXPORT void aqua_sdestroy(aqua_string s)
+void aqua_sdestroy(aqua_string s)
 {
     if (s) {
         if (s->data) {
@@ -107,7 +107,7 @@ EXPORT void aqua_sdestroy(aqua_string s)
     }
 }
 
-EXPORT aqua_string aqua_getline(FILE *fp, int *has_term)
+aqua_string aqua_getline(FILE *fp, int *has_term)
 {
     int c;
     aqua_string_builder b;
