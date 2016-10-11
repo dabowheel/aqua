@@ -10,3 +10,8 @@ Aims to be a lightweight C base library when combined with libc.
     sudo make install
 ### Windows
     nmake win
+
+## See Examples
+
+* examples/string
+* examples/wc
