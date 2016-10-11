@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #define IMPORT_FROM_AQUA
-#include "../aqua.h"
+#include <aqua.h>
 #include <criterion/criterion.h>
 
 Test(string, cstr2s) {

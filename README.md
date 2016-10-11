@@ -15,3 +15,9 @@ Aims to be a lightweight C base library when combined with libc.
 
 * examples/string
 * examples/wc
+
+## Testing
+### Unix
+    cd test
+    make
+    make run

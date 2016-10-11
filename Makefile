@@ -10,6 +10,7 @@ aqua.o: aqua.c
 	$(CC) -c -fPIC aqua.c $(CFLAGS)
 libaqua.so: aqua.o
 	$(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so aqua.o
+	cp libaqua.so libaqua.so.$(version)
 clean:
 	rm -f aqua.o libaqua.so*
 install:

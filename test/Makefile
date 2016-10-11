@@ -1,24 +1,22 @@
-include_dirs = -I../external/Criterion/include
+include_dirs = -I../external/Criterion/include -I..
 CFLAGS = -O3 -Wall -pedantic -s $(include_dirs)
-LDFLAGS = -L../external/Criterion/build
-LDLIBS = -lcriterion
-CL = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\cl"
-LINK = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link"
+LDFLAGS = -L../external/Criterion/build -L..
+LDLIBS = -lcriterion -laqua
 
 # UNIX
-all: get aqua
-aqua: aqua.o
-	gcc -o aqua aqua.o ../aqua.o $(LDLIBS) $(LDFLAGS)
+all: get main
+main: main.o
+	gcc -o main main.o $(LDLIBS) $(LDFLAGS)
 aqua.o: aqua.c
 	gcc -c aqua.c $(CFLAGS)
 get:
 	if [ ! -d ../external/Criterion ]; then git clone git@github.com:Snaipe/Criterion.git ../external/Criterion; fi
 	if [ ! -d ../external/Criterion/build ]; then cd ../external/Criterion; mkdir build; cd build; cmake ..; cmake --build .; fi
 clean:
-	rm -f aqua.o aqua
+	rm -f main main.o
 	rm -rf ../external/Criterion
 run:
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../external/Criterion/build ./aqua
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../external/Criterion/build:.. ./main
 
 # WINDOWS
 win: winget main.exe
