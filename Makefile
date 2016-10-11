@@ -24,6 +24,7 @@ uninstall:
 # Windows
 win: aqua.dll
 aqua.dll:
+	set ExternalCompilerOptions=/DWINAPI
 	msbuild LibAqua.sln /p:Configuration=Debug /p:Platform=X86
 winclean:
 	rmdir /s /q Debug || rmdir /s /q examples\Debug
