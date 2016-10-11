@@ -12,14 +12,8 @@ clean:
 	rm wc string *.o
 
 # Windows
-win: wc.exe string.exe
-wc.exe: wc.obj
-	link -out:wc.exe wc.obj ../aqua.obj
-wc.obj:
-	cl -c wc.c
-string.exe: string.obj
-	link -out:string.exe string.obj ../aqua.obj
-string.obj: string.c
-	cl -c string.c
+win: wc.exe
+wc.exe: wc.c
+	msbuild MyProgram.vcxproj /p:Configuration=Debug /p:Platform=X86
 winclean:
-	del wc wc.obj
+	rmdir /s /q Debug

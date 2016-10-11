@@ -2,3 +2,4 @@ external
 *.o
 *.obj
 test/aqua
+Debug
