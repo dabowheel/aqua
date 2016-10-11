@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D1043D93-0CF0-40EA-A4B2-065705985EB6}</ProjectGuid>
-    <RootNamespace>MyProgram</RootNamespace>
+    <RootNamespace>wc</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

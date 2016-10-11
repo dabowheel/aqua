@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibAqua", "LibAqua.vcxproj", "{A5629133-880C-4F02-B39D-3FA258CB9EFF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyProgram", "examples\wc\MyProgram.vcxproj", "{D1043D93-0CF0-40EA-A4B2-065705985EB6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wc", "examples\wc\wc.vcxproj", "{D1043D93-0CF0-40EA-A4B2-065705985EB6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "string", "examples\string\string.vcxproj", "{D1043D93-0CF0-40EA-A4B2-065705985EB6}"
 EndProject
