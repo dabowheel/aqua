@@ -11,7 +11,7 @@ aqua.o: aqua.c
 libaqua.so.$(version): aqua.o
 	$(CC) -shared -Wl,-soname,libaqua.so.1 -o libaqua.so.$(version) aqua.o
 clean:
-	rm -f aqua.o aqua.so.*
+	rm -f aqua.o libaqua.so.*
 install:
 	cp libaqua.so.$(version) $(installpath)/lib
 	cd $(installpath)/lib; ln -s libaqua.so.$(version) libaqua.so.$(majorversion)
