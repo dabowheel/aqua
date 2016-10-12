@@ -112,12 +112,14 @@ EXPORT aqua_string aqua_getline(FILE *fp, int *has_term)
     int c;
     aqua_string_builder b;
 
-    *has_term = 0;
+    if (has_term)
+        *has_term = 0;
     b = aqua_sbldcreate();
     while ((c = fgetc(fp)) != EOF) {
         aqua_sbldaddchar(b, c);
         if (c == '\n') {
-            *has_term = 1;
+            if (has_term)
+                *has_term = 1;
             break;
         }
     }
