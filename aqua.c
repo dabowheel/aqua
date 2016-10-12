@@ -127,3 +127,37 @@ EXPORT aqua_string aqua_getline(FILE *fp, int *has_term)
     }
     return aqua_sbld2s(b);
 }
+
+EXPORT int aqua_regex_compile(regex_t *compiled, char *pattern, int cflags, char **errorptr)
+{
+    int errcode;
+
+    errcode = regcomp(compiled, pattern, cflags);
+    if (errcode) {
+        size_t length;
+        length = regerror(errcode, compiled, NULL, 0);
+        *errorptr = malloc(length);
+        regerror(errcode, compiled, *errorptr, length);
+        return 0;
+    }
+    return 1;
+}
+
+EXPORT int aqua_regex_exec(regex_t *compiled, char *pattern, int nmatch, int eflags, regmatch_t **matchlistptr, int *ismatchptr, char **errorptr)
+{
+    int errcode;
+
+    if (nmatch > 0) {
+        *matchlistptr = malloc(sizeof(regmatch_t) * nmatch);
+    }
+    errcode = regexec(compiled, pattern, nmatch, *matchlistptr, eflags);
+    *ismatchptr = (errcode == 0);
+    if (!*ismatchptr && errcode != REG_NOMATCH) {
+        size_t length;
+        length = regerror(errcode, compiled, NULL, 0);
+        *errorptr = malloc(length);
+        regerror(errcode, compiled, *errorptr, length);
+        return 0;
+    }
+    return 1;
+}
