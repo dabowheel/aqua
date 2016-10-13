@@ -130,6 +130,7 @@ EXPORT aqua_string aqua_getline(FILE *fp, int *has_term)
     return aqua_sbld2s(b);
 }
 
+#ifndef WINAPI
 EXPORT int aqua_regex_compile(regex_t *compiled, char *pattern, int cflags, char **errorptr)
 {
     int errcode;
@@ -163,3 +164,4 @@ EXPORT int aqua_regex_exec(regex_t *compiled, char *pattern, int nmatch, int efl
     }
     return 1;
 }
+#endif

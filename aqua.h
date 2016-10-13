@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+
+#ifndef WINAPI
 #include <regex.h>
+#endif
 
 #ifdef WINAPI
 #define EXPORT __declspec (dllexport)
@@ -35,8 +38,10 @@ EXPORT void aqua_sdestroy(aqua_string s);
 
 EXPORT aqua_string aqua_getline(FILE *fp, int *has_term);
 
+#ifndef WINAPI
 EXPORT int regex_compile(regex_t *compiled, char *pattern, int cflags, char **errorptr);
 EXPORT int regex_exec(regex_t *compiled, char *pattern, int nmatch, int eflags, regmatch_t **matchlistptr, int *ismatchptr, char **errorptr);
+#endif
 
 #ifdef IMPORT_FROM_AQUA
 
@@ -58,7 +63,9 @@ EXPORT int regex_exec(regex_t *compiled, char *pattern, int nmatch, int eflags, 
 
 #define getline aqua_getline
 
+#ifndef WINAPI
 #define regex_compile aqua_regex_compile
 #define regex_exec aqua_regex_exec
+#endif
 
 #endif

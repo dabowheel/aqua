@@ -86,6 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>$(ExternalCompilerOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SuppressStartupBanner>false</SuppressStartupBanner>
@@ -97,6 +98,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>$(ExternalCompilerOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SuppressStartupBanner>false</SuppressStartupBanner>
@@ -110,6 +112,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>$(ExternalCompilerOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -125,6 +128,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>$(ExternalCompilerOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
