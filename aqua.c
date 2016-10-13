@@ -152,7 +152,7 @@ EXPORT int aqua_regex_exec(regex_t *compiled, char *pattern, int nmatch, int efl
     if (nmatch > 0) {
         *matchlistptr = malloc(sizeof(regmatch_t) * nmatch);
     }
-    errcode = regexec(compiled, pattern, nmatch, *matchlistptr, eflags);
+    errcode = regexec(compiled, pattern, nmatch, (matchlistptr)?(*matchlistptr):(NULL), eflags);
     *ismatchptr = (errcode == 0);
     if (!*ismatchptr && errcode != REG_NOMATCH) {
         size_t length;

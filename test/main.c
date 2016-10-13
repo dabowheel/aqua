@@ -63,6 +63,6 @@ Test(getline, test)
 
     s = getline(fp, &has_term);
     cr_assert(has_term, "should have line termination character");
-    cr_assert(strcmp(s->data, "The MIT License (MIT)\n") == 0, "should get the first line");
+    cr_assert(strcmp(s->data, "GNU LESSER GENERAL PUBLIC LICENSE\n") == 0, "should get the first line");
     sdestroy(s);
 }
