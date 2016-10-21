@@ -1,28 +1,30 @@
-CFLAGS = -O3 -Wall -pedantic -s
 CC = gcc
-majorversion = 1
-version = $(majorversion).0.1
+version = 0.1.1
 installpath = /usr/local
+includepath = -I../include
+CFLAGS = -O3 -Wall -pedantic -s $(includepath)
 
 # UNIX
-all: libaqua.so
-aqua.o: aqua.c
-	$(CC) -c -fPIC aqua.c $(CFLAGS)
-urlcode.o: urlcode.c
-	$(CC) -c -fPIC urlcode.c
-libaqua.so: aqua.o urlcode.o
-	$(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so aqua.o urlcode.o
-	cp libaqua.so libaqua.so.$(version)
+all: build build/libaqua.so
+build:
+	mkdir -p build
+build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/node.o
+	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so.$(version) urlcode.o string_builder.o util.o string.o node.o
+	cd build; ln -s libaqua.so.$(version) libaqua.so
+build/%.o: src/%.c
+	cd build; $(CC) -c -fPIC ../$< $(CFLAGS)
+
 clean:
-	rm -f aqua.o libaqua.so*
+	rm -rf build
+
 install:
-	cp libaqua.so $(installpath)/lib/libaqua.so.$(version)
+	cp build/libaqua.so $(installpath)/lib/libaqua.so.$(version)
 	cd $(installpath)/lib; ln -s -f libaqua.so.$(version) libaqua.so
-	cp aqua.h $(installpath)/include
+	cp -r include/aqua $(installpath)/include
 uninstall:
-	rm -f $(installpath)/lib/libaqua.so.1
+	rm -f $(installpath)/lib/libaqua.so
 	rm -f $(installpath)/lib/libaqua.so.$(version)
-	rm -f $(installpath)/include/aqua.h
+	rm -rf $(installpath)/include/aqua
 
 # Windows
 win:

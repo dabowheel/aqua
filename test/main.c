@@ -1,70 +1,69 @@
 #include <stdio.h>
 #include <string.h>
-#define IMPORT_FROM_AQUA
-#include <aqua.h>
+#include <aqua/aqua.h>
 #include <criterion/criterion.h>
 
-Test(string, cstr2s) {
-    string s = cstr2s("hello");
+Test(a_string, cstr2s) {
+    a_string s = a_cstr2s("hello");
 
-    cr_assert(strcmp(s->data, "hello") == 0, "string is hello");
+    cr_assert(strcmp(s->data, "hello") == 0, "a_string is hello");
     cr_assert(s->len == 5, "length is 5");
-    sdestroy(s);
+    a_sdestroy(s);
 }
 
-Test(string_builder, sbldaddchar) {
-    string_builder b;
-    string s;
+Test(a_string_builder, sbldaddchar) {
+    a_string_builder b;
+    a_string s;
     char *cstr;
 
-    b = sbldcreate();
-    sbldaddchar(b, 'a');
-    s = sbld2s(b);
-    cstr = s2cstr(s);
+    b = a_sbldcreate();
+    a_sbldaddchar(b, 'a');
+    s = a_sbld2s(b);
+    cstr = a_s2cstr(s);
 
-    cr_assert(strcmp(cstr, "a") == 0, "check we can add a char to string builder");
+    cr_assert(strcmp(cstr, "a") == 0, "check we can add a char to a_string builder");
     free(cstr);
 }
 
-Test(string_builder, sbldadds) {
-    string_builder b;
-    string s;
-    string s2;
+Test(a_string_builder, sbldadds) {
+    a_string_builder b;
+    a_string s;
+    a_string s2;
     char *cstr;
 
-    b = sbldcreate();
-    s = cstr2s("abc");
-    sbldadds(b, s);
-    s2 = sbld2s(b);
-    cstr = s2cstr(s2);
+    b = a_sbldcreate();
+    s = a_cstr2s("abc");
+    a_sbldadds(b, s);
+    s2 = a_sbld2s(b);
+    cstr = a_s2cstr(s2);
 
-    cr_assert(strcmp(cstr, "abc") == 0, "check we can add a string to string builder");
+    cr_assert(strcmp(cstr, "abc") == 0, "check we can add a a_string to a_string builder");
     free(cstr);    
 }
 
-Test(string_builder, sblddestroy)
+Test(a_string_builder, sblddestroy)
 {
-    string_builder b;
+    a_string_builder b;
 
-    b = sbldcreate();
-    sbldaddchar(b, 'x');
-    sblddestroy(b);
+    b = a_sbldcreate();
+    a_sbldaddchar(b, 'x');
+    a_sblddestroy(b);
 }
 
-Test(getline, test)
+Test(a_getline, test)
 {
     FILE *fp;
     int has_term;
-    string s;
+    a_string s;
 
     fp = fopen("../LICENSE", "r");
 
     cr_assert(fp, "should be able to open file");
 
-    s = getline(fp, &has_term);
+    s = a_getline(fp, &has_term);
     cr_assert(has_term, "should have line termination character");
     cr_assert(strcmp(s->data, "GNU LESSER GENERAL PUBLIC LICENSE\n") == 0, "should get the first line");
-    sdestroy(s);
+    a_sdestroy(s);
 }
 
 Test(url_encode, test)
@@ -73,10 +72,70 @@ Test(url_encode, test)
     char *str2 = url_encode(str);
     char *str3;
     str3 = url_decode(str2);
-    cr_assert(strcmp(str, str3) == 0, "check that decode matches original string");
-    printf("%s\n", str);
-    printf("%s\n", str2);
-    printf("%s\n", str3);
+    cr_assert(strcmp(str, str3) == 0, "check that decode matches original a_string");
     free(str2);
     free(str3);
+}
+
+Test(a_sbldaddmem, test)
+{
+    char *str = "hello";
+    char *str2 = "my world";
+    a_string_builder b = a_sbldcreate();
+    a_string out;
+
+    a_sbldaddcstr(b, str);
+    a_sbldaddchar(b, ' ');
+    a_sbldaddmem(b, &str2[3], 5);
+    out = a_sbld2s(b);
+    cr_assert(strcmp(out->data, "hello world") == 0, "check buffer added to a_string builder");
+    a_sdestroy(out);
+}
+
+Test(nextPiece, 1)
+{
+    int pos = 0;
+    a_string s, s1, s2, s3, s4, s5;
+
+    s = a_cstr2s("one|two||four|");
+    s1 = a_nextPiece(s, '|', &pos);
+    s2 = a_nextPiece(s, '|', &pos);
+    s3 = a_nextPiece(s, '|', &pos);
+    s4 = a_nextPiece(s, '|', &pos);
+    s5 = a_nextPiece(s, '|', &pos);
+
+    cr_assert(strcmp(s1->data, "one") == 0, "check first piece is correct");
+    cr_assert(strcmp(s2->data, "two") == 0, "check second piece is correct");
+    cr_assert(strcmp(s3->data, "") == 0, "check third piece is correct");
+    cr_assert(strcmp(s4->data, "four") == 0, "check fourth piece is correct");
+    cr_assert(strcmp(s5->data, "") == 0, "check fifth piece is correct");
+    cr_assert(pos == -1, "check that position is -1");
+
+    a_sdestroy(s);
+    a_sdestroy(s1);
+    a_sdestroy(s2);
+    a_sdestroy(s3);
+    a_sdestroy(s4);
+    a_sdestroy(s5);
+}
+
+Test(a_nextPiece, 2)
+{
+    int pos = 0;
+    a_string s, s1, s2, s3;
+
+    s = a_cstr2s("one|two|three");
+    s1 = a_nextPiece(s, '|', &pos);
+    s2 = a_nextPiece(s, '|', &pos);
+    s3 = a_nextPiece(s, '|', &pos);
+
+    cr_assert(strcmp(s1->data, "one") == 0, "check first piece is correct");
+    cr_assert(strcmp(s2->data, "two") == 0, "check second piece is correct");
+    cr_assert(strcmp(s3->data, "three") == 0, "check third piece is correct");
+    cr_assert(pos == -1, "check that pos is -1");
+
+    a_sdestroy(s);
+    a_sdestroy(s1);
+    a_sdestroy(s2);
+    a_sdestroy(s3);
 }

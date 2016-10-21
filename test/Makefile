@@ -1,6 +1,6 @@
-include_dirs = -I../external/Criterion/include -I..
+include_dirs = -I../external/Criterion/include -I../include
 CFLAGS = -O3 -Wall -pedantic -s $(include_dirs)
-LDFLAGS = -L../external/Criterion/build -L..
+LDFLAGS = -L../external/Criterion/build -L../build
 LDLIBS = -lcriterion -laqua
 
 # UNIX
@@ -16,4 +16,4 @@ clean:
 	rm -f main main.o
 	rm -rf ../external/Criterion
 run:
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../external/Criterion/build:.. ./main
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../external/Criterion/build:../build ./main

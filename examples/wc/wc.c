@@ -1,10 +1,9 @@
 #include <stdio.h>
-#define IMPORT_FROM_AQUA
-#include <aqua.h>
+#include <aqua/aqua.h>
 
 int main()
 {
-    string s;
+    a_string s;
     int has_term;
     int lcount = 0;
     int wcount = 0;
@@ -12,7 +11,7 @@ int main()
     int inspace = 1;
     char c;
 
-    while ((s = getline(stdin, &has_term))) {
+    while ((s = a_getline(stdin, &has_term))) {
         for (int i = 0; i < s->len; i++) {
             c = s->data[i];
             if (c == ' ' || c == '\n' || c == '\r' || c == '\t') {
@@ -26,7 +25,7 @@ int main()
         ccount += s->len;
         if (has_term)
             lcount++;
-        sdestroy(s);
+        a_sdestroy(s);
     }
 
     printf("%d %d %d\n", lcount, wcount, ccount);

@@ -1,32 +1,31 @@
-#define IMPORT_FROM_AQUA
-#include <aqua.h>
+#include <aqua/aqua.h>
 
 void ex1()
 {
-    string s;
+    a_string s;
 
     printf("ex1\n");
-    s = cstr2s("hello world");
+    s = a_cstr2s("hello world");
     printf("%s\n", s->data);
-    sdestroy(s);
+    a_sdestroy(s);
 }
 
 void ex2()
 {
-    string_builder b;
-    string s;
-    string s2;
+    a_string_builder b;
+    a_string s;
+    a_string s2;
     char *cstr;
 
     printf("ex2\n");
-    b = sbldcreate();
-    sbldaddchar(b, 'a');
-    sbldaddcstr(b, "bc");
-    s2 = cstr2s("de");
-    sbldadds(b, s2);
-    s = sbld2s(b);
+    b = a_sbldcreate();
+    a_sbldaddchar(b, 'a');
+    a_sbldaddcstr(b, "bc");
+    s2 = a_cstr2s("de");
+    a_sbldadds(b, s2);
+    s = a_sbld2s(b);
     printf("%s\n", s->data);
-    cstr = s2cstr(s);
+    cstr = a_s2cstr(s);
     printf("%s\n", cstr);
     free(cstr);
 }

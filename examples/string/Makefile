@@ -1,7 +1,7 @@
-include_dirs = -I../..
+include_dirs = -I/usr/local/include
 CFLAGS = -O3 -Wall -pedantic -s $(include_dirs)
 version = 1.0.1
-LDFLAGS = -L../..
+LDFLAGS = -L/usr/local/lib
 LDLIBS = -laqua
 
 # UNIX
