@@ -1,5 +1,6 @@
 CC = gcc
-version = 0.1.1
+link_version = 0.1
+release_version = $(link_version).1
 installpath = /usr/local
 includepath = -I../include
 CFLAGS = -O3 -Wall -pedantic -s $(includepath)
@@ -8,9 +9,9 @@ CFLAGS = -O3 -Wall -pedantic -s $(includepath)
 all: build build/libaqua.so
 build:
 	mkdir -p build
-build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/node.o
-	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so.$(version) urlcode.o string_builder.o util.o string.o node.o
-	cd build; ln -s libaqua.so.$(version) libaqua.so
+build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/link.o build/hash_table.o
+	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so.$(version) urlcode.o string_builder.o util.o string.o link.o hash_table.o
+	cd build; ln -s -f libaqua.so.$(link_version) libaqua.so
 build/%.o: src/%.c
 	cd build; $(CC) -c -fPIC ../$< $(CFLAGS)
 
@@ -23,7 +24,7 @@ install:
 	cp -r include/aqua $(installpath)/include
 uninstall:
 	rm -f $(installpath)/lib/libaqua.so
-	rm -f $(installpath)/lib/libaqua.so.$(version)
+	rm -f $(installpath)/lib/libaqua.so.$(link_version)
 	rm -rf $(installpath)/include/aqua
 
 # Windows

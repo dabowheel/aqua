@@ -139,3 +139,24 @@ Test(a_nextPiece, 2)
     a_sdestroy(s2);
     a_sdestroy(s3);
 }
+
+Test(a_link, 1)
+{
+    a_string s = a_cstr2s("hello");
+    a_link link = a_linkCreate(s);
+    a_link head = NULL;
+    head = a_linkPush(head, link);
+    cr_assert(head == link, "check that link was pushed on list");
+    cr_assert(head->next == NULL, "check that there is one link on the list");
+    a_sdestroy(s);
+    free(link);
+}
+
+Test(a_hash, 1)
+{
+    const size_t size = 100;
+    a_hash hash;
+    a_string s = a_cstr2s("hello");
+    hash = a_hashCreate(size);
+    a_hashAdd(hash, s, s, size);
+}

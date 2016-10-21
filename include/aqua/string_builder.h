@@ -1,3 +1,6 @@
+#ifndef AQUA_STRING_BUILDER_H
+#define AQUA_STRING_BUILDER_H
+
 #include "win32.h"
 
 typedef struct a_string_builder {
@@ -16,3 +19,5 @@ EXPORT void a_sbldaddmem(a_string_builder b, char *buffer, size_t size);
 EXPORT a_string a_sbld2s(a_string_builder b);
 EXPORT void a_sblddestroy(a_string_builder b);
 EXPORT a_string a_getline(FILE *fp, int *has_term);
+
+#endif
