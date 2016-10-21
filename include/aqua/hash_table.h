@@ -13,4 +13,10 @@ typedef struct a_hash_item {
   void *data;
 } *a_hash_item;
 
+EXPORT a_hash_table a_htCreate(size_t array_size);
+EXPORT int a_htHash(a_string key, size_t array_size);
+EXPORT a_hash_item a_hiCreate(a_string key, void *data);
+EXPORT void a_htSet(a_hash_table t, a_string key, void *data);
+EXPORT void *a_htGet(a_hash_table t, a_string key);
+
 #endif

@@ -6,7 +6,7 @@
 #include <aqua/link.h>
 #include <string.h>
 
-EXPORT a_hash_table a_hashCreate(size_t array_size)
+EXPORT a_hash_table a_htCreate(size_t array_size)
 {
     a_hash_table t;
     t = a_malloc(sizeof(struct a_hash_table));
@@ -15,7 +15,7 @@ EXPORT a_hash_table a_hashCreate(size_t array_size)
     return t;
 }
 
-EXPORT int a_hash(a_string key, size_t array_size)
+EXPORT int a_htHash(a_string key, size_t array_size)
 {
     int value = 0;
     for (int i = 0; i < 10 && i < key->len; i++) {
@@ -25,7 +25,7 @@ EXPORT int a_hash(a_string key, size_t array_size)
     return value;
 }
 
-EXPORT a_hash_item a_hash_itemCreate(a_string key, void *data)
+EXPORT a_hash_item a_hiCreate(a_string key, void *data)
 {
   a_hash_item item = a_malloc(sizeof(struct a_hash_item));
   item->key = key;
@@ -33,17 +33,17 @@ EXPORT a_hash_item a_hash_itemCreate(a_string key, void *data)
   return item;
 }
 
-EXPORT void a_hashSet(a_hash_table t, a_string key, void *data)
+EXPORT void a_htSet(a_hash_table t, a_string key, void *data)
 {
-    a_hash_item item = a_hash_itemCreate(key, data);
+    a_hash_item item = a_hiCreate(key, data);
     a_link l = a_linkCreate(item);
-    int hash = a_hash(key, t->array_size);
+    int hash = a_htHash(key, t->array_size);
     t->array[hash] = a_linkPush(t->array[hash], l);
 }
 
-EXPORT void *a_hashGet(a_hash_table t, a_string key)
+EXPORT void *a_htGet(a_hash_table t, a_string key)
 {
-    int hash = a_hash(key, t->array_size);
+    int hash = a_htHash(key, t->array_size);
     a_link l = t->array[hash];
     void *data = NULL;
 
