@@ -154,9 +154,12 @@ Test(a_link, 1)
 
 Test(a_hash, 1)
 {
-    const size_t size = 100;
-    a_hash hash;
     a_string s = a_cstr2s("hello");
-    hash = a_hashCreate(size);
-    a_hashAdd(hash, s, s, size);
+    a_string s2;
+    a_hash_table table = gtCreate(100);
+
+    a_htSet(table, s, s);
+    s2 = a_htGet(table, s);
+    cr_assert(s == s2, "Can set and get an item from hash table.");
+    
 }

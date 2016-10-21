@@ -16,3 +16,11 @@ EXPORT a_link a_linkPush(a_link head, a_link link)
     link->next = head;
     return link;
 }
+
+EXPORT void a_lMap(a_link head, void (*func) (a_link))
+{
+    while (head) {
+        func(head);
+        head = head->next;
+    }
+}

@@ -10,7 +10,7 @@ all: build build/libaqua.so
 build:
 	mkdir -p build
 build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/link.o build/hash_table.o
-	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(version) -o libaqua.so.$(version) urlcode.o string_builder.o util.o string.o link.o hash_table.o
+	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(link_version) -o libaqua.so.$(link_version) urlcode.o string_builder.o util.o string.o link.o hash_table.o
 	cd build; ln -s -f libaqua.so.$(link_version) libaqua.so
 build/%.o: src/%.c
 	cd build; $(CC) -c -fPIC ../$< $(CFLAGS)

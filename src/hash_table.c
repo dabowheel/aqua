@@ -59,3 +59,10 @@ EXPORT void *a_htGet(a_hash_table t, a_string key)
 
     return data;
 }
+
+EXPORT void a_htMap(a_hash_table table, void (*func) (a_link))
+{
+    for (int i = 0; i < table->array_size; i++) {
+        a_lMap(table->array[i], func);
+    }
+}

@@ -18,5 +18,6 @@ EXPORT int a_htHash(a_string key, size_t array_size);
 EXPORT a_hash_item a_hiCreate(a_string key, void *data);
 EXPORT void a_htSet(a_hash_table t, a_string key, void *data);
 EXPORT void *a_htGet(a_hash_table t, a_string key);
+EXPORT void a_htMap(a_hash_table table, void (*func) (a_link));
 
 #endif

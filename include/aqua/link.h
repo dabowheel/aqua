@@ -11,5 +11,6 @@ typedef struct a_link {
 
 EXPORT a_link a_linkCreate(void *data);
 EXPORT a_link a_linkPush(a_link head, a_link link);
+EXPORT void a_lMap(a_link head, void (*func) (a_link));
 
 #endif
