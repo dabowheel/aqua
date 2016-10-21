@@ -66,3 +66,17 @@ Test(getline, test)
     cr_assert(strcmp(s->data, "GNU LESSER GENERAL PUBLIC LICENSE\n") == 0, "should get the first line");
     sdestroy(s);
 }
+
+Test(url_encode, test)
+{
+    char *str = "name=one&value=1&comment=what's up doc?";
+    char *str2 = url_encode(str);
+    char *str3;
+    str3 = url_decode(str2);
+    cr_assert(strcmp(str, str3) == 0, "check that decode matches original string");
+    printf("%s\n", str);
+    printf("%s\n", str2);
+    printf("%s\n", str3);
+    free(str2);
+    free(str3);
+}

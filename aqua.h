@@ -37,6 +37,8 @@ EXPORT void aqua_sblddestroy(aqua_string_builder b);
 EXPORT void aqua_sdestroy(aqua_string s);
 
 EXPORT aqua_string aqua_getline(FILE *fp, int *has_term);
+char *url_encode(char *str);
+char *url_decode(char *str);
 
 #ifndef WINAPI
 EXPORT int regex_compile(regex_t *compiled, char *pattern, int cflags, char **errorptr);

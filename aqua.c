@@ -83,7 +83,8 @@ EXPORT aqua_string aqua_cstr2s(char *cstr)
 {
     aqua_string_builder b = aqua_sbldcreate();
 
-    aqua_sbldaddcstr(b, cstr);
+    if (cstr)
+        aqua_sbldaddcstr(b, cstr);
     return aqua_sbld2s(b);
 }
 
