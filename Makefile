@@ -3,23 +3,52 @@ link_version = 0.1
 release_version = $(link_version).1
 installpath = /usr/local
 includepath = -I../include
-CFLAGS = -Wall -pedantic -s $(includepath) -g
+base_cflags = -Wall -pedantic -s $(includepath)
+objects = urlcode.o string_builder.o util.o string.o hash_table.o form.o
+debug_flags =
 
 # UNIX
-all: build build/libaqua.so
-build:
-	mkdir -p build
-build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/hash_table.o build/form.o
-	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(link_version) -o libaqua.so.$(link_version) urlcode.o string_builder.o util.o string.o hash_table.o form.o
-	cd build; ln -s -f libaqua.so.$(link_version) libaqua.so
-build/%.o: src/%.c
-	cd build; $(CC) -c -fPIC ../$< $(CFLAGS)
+release: sharedlib_target = sharedlib
+release: staticlib_target = staticlib
+release: libs
+
+debug: sharedlib_target = debug_sharedlib
+debug: staticlib_target = debug_staticlib
+debug: libs
+
+libs: root_sharedlib root_staticlib
+
+root_sharedlib:
+	mkdir -p build/shared
+	make -C build/shared -f ../../Makefile $(sharedlib_target)
+
+root_staticlib:
+	mkdir -p build/static
+	make -C build/static -f ../../Makefile $(staticlib_target)
+
+debug_sharedlib: debug_flags = -g
+debug_sharedlib: libaqua.so
+sharedlib: libaqua.so
+libaqua.so: CFLAGS = $(base_cflags) -fPIC $(debug_flags)
+libaqua.so: $(objects)
+	$(CC) -shared -Wl,-soname,libaqua.so.$(link_version) -o libaqua.so.$(link_version) $(objects)
+	ln -s -f libaqua.so.$(link_version) libaqua.so
+
+debug_staticlib: debug_flags = -g
+debug_staticlib: libaqua.a
+staticlib: libaqua.a
+libaqua.a: CFLAGS = $(base_cflags) $(debug_flags)
+libaqua.a: $(objects)
+	ar rcs libaqua.a $(objects)
+
+%.o: ../../src/%.c
+	$(CC) -c $< $(CFLAGS)
 
 clean:
 	rm -rf build
 
 install:
-	cp build/libaqua.so $(installpath)/lib/libaqua.so.$(link_version)
+	cp build/shared/libaqua.so.$(link_version) $(installpath)/lib
 	cd $(installpath)/lib; ln -s -f libaqua.so.$(link_version) libaqua.so
 	cp -r include/aqua $(installpath)/include
 uninstall:

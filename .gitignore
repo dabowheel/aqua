@@ -1,6 +1,5 @@
 external
+build
+Debug
 *.o
 *.obj
-test/aqua
-libaqua.so*
-Debug

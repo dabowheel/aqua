@@ -2,6 +2,7 @@
 #include <string.h>
 #include <aqua/aqua.h>
 #include <criterion/criterion.h>
+#include <signal.h>
 
 Test(a_string, cstr2s) {
     a_string s = a_cstr2s("hello");
@@ -143,13 +144,30 @@ Test(a_nextPiece, 2)
 Test(a_hash_table, 1)
 {
     a_string key = a_cstr2s("name");
-    a_string value = a_cstr2s("bunny");
+    a_string value = a_cstr2s("han");
     a_string value2;
     a_hash_table table = a_htCreate(100);
 
     a_htSet(table, key, value);
     value2 = a_htGet(table, key);
     cr_assert(value2 == value, "Can set and get an item from hash table.");
-    a_htMap(table, a_htPrint);
+    a_htDestroy(table);
+}
+
+Test(a_decodeForm, 1)
+{
+    a_string form = a_cstr2s("name=han%20solo&place=the%20galaxy");
+    a_hash_table table = a_decodeForm(form);
+    a_string name_key = a_cstr2s("name");
+    a_string place_key = a_cstr2s("place");
+    a_string name = a_htGet(table, name_key);
+    a_string place = a_htGet(table, place_key);
+
+    cr_assert(strcmp(name->data, "han solo") == 0, "Check name is solo");
+    cr_assert(strcmp(place->data, "the galaxy") == 0, "Check place is galaxy");
+
+    a_sdestroy(name_key);
+    a_sdestroy(place_key);
+    a_sdestroy(form);
     a_htDestroy(table);
 }
