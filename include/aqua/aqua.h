@@ -5,7 +5,6 @@
 #include "win32.h"
 #include "string.h"
 #include "string_builder.h"
-#include "link.h"
 #include "hash_table.h"
 
 #endif

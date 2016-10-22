@@ -3,14 +3,14 @@ link_version = 0.1
 release_version = $(link_version).1
 installpath = /usr/local
 includepath = -I../include
-CFLAGS = -O3 -Wall -pedantic -s $(includepath)
+CFLAGS = -Wall -pedantic -s $(includepath) -g
 
 # UNIX
 all: build build/libaqua.so
 build:
 	mkdir -p build
-build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/link.o build/hash_table.o
-	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(link_version) -o libaqua.so.$(link_version) urlcode.o string_builder.o util.o string.o link.o hash_table.o
+build/libaqua.so: build/urlcode.o build/string_builder.o build/util.o build/string.o build/hash_table.o build/form.o
+	cd build; $(CC) -shared -Wl,-soname,libaqua.so.$(link_version) -o libaqua.so.$(link_version) urlcode.o string_builder.o util.o string.o hash_table.o form.o
 	cd build; ln -s -f libaqua.so.$(link_version) libaqua.so
 build/%.o: src/%.c
 	cd build; $(CC) -c -fPIC ../$< $(CFLAGS)
@@ -19,8 +19,8 @@ clean:
 	rm -rf build
 
 install:
-	cp build/libaqua.so $(installpath)/lib/libaqua.so.$(version)
-	cd $(installpath)/lib; ln -s -f libaqua.so.$(version) libaqua.so
+	cp build/libaqua.so $(installpath)/lib/libaqua.so.$(link_version)
+	cd $(installpath)/lib; ln -s -f libaqua.so.$(link_version) libaqua.so
 	cp -r include/aqua $(installpath)/include
 uninstall:
 	rm -f $(installpath)/lib/libaqua.so

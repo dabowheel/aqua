@@ -1,7 +1,9 @@
 #ifndef AQUA_STRING_BUILDER_H
 #define AQUA_STRING_BUILDER_H
 
+#include <stdio.h>
 #include "win32.h"
+#include "string.h"
 
 typedef struct a_string_builder {
     char *data;

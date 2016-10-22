@@ -140,26 +140,16 @@ Test(a_nextPiece, 2)
     a_sdestroy(s3);
 }
 
-Test(a_link, 1)
+Test(a_hash_table, 1)
 {
-    a_string s = a_cstr2s("hello");
-    a_link link = a_linkCreate(s);
-    a_link head = NULL;
-    head = a_linkPush(head, link);
-    cr_assert(head == link, "check that link was pushed on list");
-    cr_assert(head->next == NULL, "check that there is one link on the list");
-    a_sdestroy(s);
-    free(link);
-}
+    a_string key = a_cstr2s("name");
+    a_string value = a_cstr2s("bunny");
+    a_string value2;
+    a_hash_table table = a_htCreate(100);
 
-Test(a_hash, 1)
-{
-    a_string s = a_cstr2s("hello");
-    a_string s2;
-    a_hash_table table = gtCreate(100);
-
-    a_htSet(table, s, s);
-    s2 = a_htGet(table, s);
-    cr_assert(s == s2, "Can set and get an item from hash table.");
-    
+    a_htSet(table, key, value);
+    value2 = a_htGet(table, key);
+    cr_assert(value2 == value, "Can set and get an item from hash table.");
+    a_htMap(table, a_htPrint);
+    a_htDestroy(table);
 }
