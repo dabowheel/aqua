@@ -1,7 +1,7 @@
-# Aqua (libaqua) - A lightweight C Library
-Aqua aims to be a lightweight general C library.
+# Aqua (libaqua) - A String Library
+Aqua aims to be a lightweight string library in C.
 
-* Has safe and fast string functions
+* Has safe and fast string functions that don't truncate
 * application/x-www-form-urlencoded parsing
 * SQL query parameterization
 * Cross-platform: so far it works on Linux and Windows
