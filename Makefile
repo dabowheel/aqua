@@ -1,5 +1,5 @@
 CC = gcc
-link_version = 0.1
+link_version = 0.2
 release_version = $(link_version).1
 installpath = /usr/local
 includepath = -I../include
