@@ -1,8 +1,10 @@
-# Aqua - A lightweight C Library
-Aims to be a lightweight C base library when combined with libc.
+# Aqua (libaqua) - A lightweight C Library
+Aqua aims to be a lightweight general C library.
 
-* Cross-platform: so far it works on Linux and Windows
 * Has safe and fast string functions
+* application/x-www-form-urlencoded parsing
+* SQL query parameterization
+* Cross-platform: so far it works on Linux and Windows
 
 ## Setup
 ### Unix
