@@ -21,6 +21,7 @@ EXPORT void a_sbldaddmem(a_string_builder b, char *buffer, size_t size);
 EXPORT a_string a_sbld2s(a_string_builder b);
 EXPORT void a_sblddestroy(a_string_builder b);
 EXPORT a_string a_getline(FILE *fp, int *has_term);
-a_string a_sqlformat(a_string query, a_string *errorptr, ...);
+EXPORT a_string a_sqlformat(a_string query, a_string *errorptr, ...);
+EXPORT a_string a_sqlescape(a_string s);
 
 #endif

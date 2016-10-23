@@ -1,6 +1,6 @@
 include_dirs = -I../external/Criterion/include -I../include
 CFLAGS = -O3 -Wall -pedantic -s -g $(include_dirs)
-LDFLAGS = -L../external/Criterion/build -L../build/shared
+LDFLAGS = -L../external/Criterion/build
 LDLIBS = -lcriterion -laqua
 
 # UNIX

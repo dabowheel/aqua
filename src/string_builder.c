@@ -140,7 +140,7 @@ EXPORT a_string a_getline(FILE *fp, int *has_term)
     otherwise set out to the query with parameters replaced with variables surrounded by single quotes
 */
 
-a_string a_sqlformat(a_string query, a_string *errorptr, ...)
+EXPORT a_string a_sqlformat(a_string query, a_string *errorptr, ...)
 {
     va_list ap;
     a_string_builder b;
@@ -154,7 +154,7 @@ a_string a_sqlformat(a_string query, a_string *errorptr, ...)
             case '?':
                 value = va_arg(ap, a_string);
                 a_sbldaddchar(b, '\'');
-                a_sbldadds(b, value);
+                a_sbldadds(b, a_sqlescape(value));
                 a_sbldaddchar(b, '\'');
                 break;
             case '\'':
@@ -170,5 +170,20 @@ a_string a_sqlformat(a_string query, a_string *errorptr, ...)
         }
     }
     va_end(ap);
+    return a_sbld2s(b);
+}
+
+EXPORT a_string a_sqlescape(a_string s)
+{
+    a_string_builder b;
+    b = a_sbldcreate();
+
+    for (int i = 0; i < s->len; i++) {
+        if (s->data[i] == '\'') {
+            a_sbldaddcstr(b, "''");
+        } else {
+            a_sbldaddchar(b, s->data[i]);
+        }
+    }
     return a_sbld2s(b);
 }
