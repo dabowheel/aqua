@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <aqua/aqua.h>
+#include "../include/aqua/aqua.h"
 #include <criterion/criterion.h>
 #include <signal.h>
 
@@ -170,4 +170,25 @@ Test(a_decodeForm, 1)
     a_sdestroy(place_key);
     a_sdestroy(form);
     a_htDestroy(table);
+}
+
+Test(a_sqlformat, 1)
+{
+    a_string query = a_cstr2s("insert into user values (?, ?);");
+    a_string error;
+    a_string query2;
+    a_string email = a_cstr2s("luke@star");
+    a_string password = a_cstr2s("force");
+
+    query2 = a_sqlformat(query, &error, email, password);
+    if (!query2) {
+        printf("%s\n", error->data);
+        a_sdestroy(error);
+    } else {
+        printf("%s\n", query2->data);
+    }
+    a_sdestroy(query);
+    a_sdestroy(query2);
+    a_sdestroy(email);
+    a_sdestroy(password);
 }

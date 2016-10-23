@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <aqua/win32.h>
-#include <aqua/util.h>
-#include <aqua/string.h>
-#include <aqua/string_builder.h>
+#include <stdarg.h>
+#include "../include/aqua/aqua.h"
 
 #define CHUNK 100
 #define MAX(a,b) ((b) > (a)) ? (b) : (a)
@@ -63,7 +61,7 @@ EXPORT void a_sbldaddchar(a_string_builder b, char c)
     b->data[b->len++] = c;
 }
 
-EXPORT void a_sbldaddcstr(a_string_builder b, char *str)
+EXPORT void a_sbldaddcstr(a_string_builder b, const char *str)
 {
     while (*str) {
         a_sbldaddchar(b, *str);
@@ -73,9 +71,7 @@ EXPORT void a_sbldaddcstr(a_string_builder b, char *str)
 
 EXPORT void a_sbldadds(a_string_builder b, a_string s)
 {
-    char *cstr;
-    cstr = a_s2cstr(s);
-    a_sbldaddcstr(b, cstr);
+    a_sbldaddmem(b, s->data, s->len);
 }
 
 EXPORT void a_sbldaddmem(a_string_builder b, char *buffer, size_t size)
@@ -133,5 +129,46 @@ EXPORT a_string a_getline(FILE *fp, int *has_term)
         a_sblddestroy(b);
         return NULL;
     }
+    return a_sbld2s(b);
+}
+
+/*
+    sqlformat(const a_string query, &a_string out, a_string error, const variable...) => (1 if successful, otherwise 0)
+
+    if there are single or double quotes in the query, then return 0 and set error
+    if there are more parameters than variables then return 0 and set error
+    otherwise set out to the query with parameters replaced with variables surrounded by single quotes
+*/
+
+a_string a_sqlformat(a_string query, a_string *errorptr, ...)
+{
+    va_list ap;
+    a_string_builder b;
+    a_string value;
+
+    *errorptr = NULL;
+    b = a_sbldcreate();
+    va_start(ap, errorptr);
+    for (int i = 0; i < query->len; i++) {
+        switch (query->data[i]) {
+            case '?':
+                value = va_arg(ap, a_string);
+                a_sbldaddchar(b, '\'');
+                a_sbldadds(b, value);
+                a_sbldaddchar(b, '\'');
+                break;
+            case '\'':
+            case '"':
+                va_end(ap);
+                *errorptr = a_cstr2s("Quotes are not allowed; use a parameter instead.");
+                a_sblddestroy(b);
+                return NULL;
+                break;
+            default:
+                a_sbldaddchar(b, query->data[i]);
+                break;
+        }
+    }
+    va_end(ap);
     return a_sbld2s(b);
 }

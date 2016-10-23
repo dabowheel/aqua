@@ -2,7 +2,7 @@
 #define AQUA_UTIL_H
 
 #include <stdlib.h>
-#include "win32.h"
+#include "aqua.h"
 
 EXPORT void a_fatal(char *error);
 EXPORT void *a_malloc(size_t size);

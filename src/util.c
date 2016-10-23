@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <aqua/win32.h>
+#include "../include/aqua/aqua.h"
 
 #define OUT_OF_MEMORY "Out of memory"
 
