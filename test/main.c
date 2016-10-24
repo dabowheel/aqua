@@ -233,3 +233,15 @@ Test(a_GetTime, 1)
     a_string s = a_GetISOTime(&t);
     printf("%s\n", s->data);
 }
+
+Test(a_GetRandomSeed, 1)
+{
+    unsigned int seed;
+    a_string error;
+
+    if (!a_GetRandomSeed(&seed, &error)) {
+        fprintf(stderr, "%s\n", error->data);
+    } else {
+        printf("%u\n", seed);
+    }
+}

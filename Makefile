@@ -4,7 +4,7 @@ release_version = $(link_version).1
 installpath = /usr/local
 includepath = -I../include
 base_cflags = -Wall -pedantic -s $(includepath)
-objects = urlcode.o string_builder.o util.o string.o hash_table.o form.o time.o
+objects = urlcode.o string_builder.o util.o string.o hash_table.o form.o time.o random.o
 debug_flags =
 
 # UNIX

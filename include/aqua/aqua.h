@@ -8,5 +8,6 @@
 #include "hash_table.h"
 #include "form.h"
 #include "time.h"
+#include "random.h"
 
 #endif
