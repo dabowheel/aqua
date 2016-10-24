@@ -3,6 +3,7 @@
 #include "../include/aqua/aqua.h"
 #include <criterion/criterion.h>
 #include <signal.h>
+#include <sys/time.h>
 
 Test(a_string, cstr2s) {
     a_string s = a_cstr2s("hello");
@@ -223,6 +224,12 @@ Test(a_itoa, 1)
 
 Test(a_GetTime, 1)
 {
-    a_string s = a_GetTime();
+    struct timeval t;
+    int ret;
+
+    ret = gettimeofday(&t, NULL);
+    cr_assert(ret == 0, "should get time of day");
+
+    a_string s = a_GetISOTime(&t);
     printf("%s\n", s->data);
 }

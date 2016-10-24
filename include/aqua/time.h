@@ -3,6 +3,6 @@
 
 #include "aqua.h"
 
-EXPORT a_string a_GetTime();
+EXPORT a_string a_GetISOTime(const struct timeval *time);
 
 #endif
