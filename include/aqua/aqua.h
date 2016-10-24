@@ -7,5 +7,6 @@
 #include "string_builder.h"
 #include "hash_table.h"
 #include "form.h"
+#include "time.h"
 
 #endif

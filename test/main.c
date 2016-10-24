@@ -187,3 +187,42 @@ Test(a_sqlformat, 1)
     a_sdestroy(email);
     a_sdestroy(password);
 }
+
+Test(a_itoa, 1)
+{
+    a_string s;
+
+    s = a_itoa(22);
+    cr_assert(strcmp(s->data, "22") == 0, "check 22");
+    a_sdestroy(s);
+
+    s = a_itoa(-22);
+    cr_assert(strcmp(s->data, "-22") == 0, "check -22");
+    a_sdestroy(s);
+
+    s = a_itoa(0);
+    cr_assert(strcmp(s->data, "0") == 0, "check 0");
+    a_sdestroy(s);
+
+    s = a_itoa(100);
+    cr_assert(strcmp(s->data, "100") == 0, "check 100");
+    a_sdestroy(s);
+
+    s = a_itoa(-100);
+    cr_assert(strcmp(s->data, "-100") == 0, "check 100");
+    a_sdestroy(s);
+
+    s = a_itoa(1);
+    cr_assert(strcmp(s->data, "1") == 0, "check 1");
+    a_sdestroy(s);
+
+    s = a_itoa(-1);
+    cr_assert(strcmp(s->data, "-1") == 0, "check -1");
+    a_sdestroy(s);
+}
+
+Test(a_GetTime, 1)
+{
+    a_string s = a_GetTime();
+    printf("%s\n", s->data);
+}

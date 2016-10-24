@@ -187,3 +187,50 @@ EXPORT a_string a_sqlescape(a_string s)
     }
     return a_sbld2s(b);
 }
+
+EXPORT void a_sbldaddlen(a_string_builder b, unsigned int len)
+{
+    b->len += len;
+    if (b->len > b->mlen) {
+        b->mlen += MAX(len, CHUNK);
+        b->data = a_realloc(b->data, b->mlen);
+    }
+}
+
+EXPORT a_string a_itoa(int i)
+{
+    a_string_builder b;
+    int shifter;
+    unsigned int len = 0;
+    
+    b = a_sbldcreate();
+    if (i < 0) {
+        a_sbldaddchar(b, '-');
+        i *= -1;
+    }
+    len += b->len;
+    
+    shifter = i;
+    do {
+        len++;
+        shifter /= 10;
+    } while (shifter);
+    a_sbldaddlen(b, len - b->len);
+
+    do {
+        b->data[--len] = (i % 10) + '0';
+        i /= 10;
+    } while (i);
+
+    return a_sbld2s(b);
+}
+
+EXPORT a_string a_leftpad(a_string s, int num, char c)
+{
+    a_string_builder b;
+    b = a_sbldcreate();
+    for (int i = 0; i < num - s->len; i++)
+        a_sbldaddchar(b, c);
+    a_sbldadds(b, s);
+    return a_sbld2s(b);
+}
