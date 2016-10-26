@@ -1,5 +1,5 @@
 # Aqua (libaqua) - A String Library
-Aqua aims to be a lightweight string library in C.
+Aqua is a string library in C.
 
 * Has safe and fast string functions that don't truncate
 * application/x-www-form-urlencoded parsing
