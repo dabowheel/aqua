@@ -54,11 +54,8 @@ EXPORT a_string_builder a_sbldcreate()
 
 EXPORT void a_sbldaddchar(a_string_builder b, char c)
 {
-    if(b->len + 1 > b->mlen) {
-        b->mlen += CHUNK;
-        a_realloc(b->data, b->mlen);
-    }
-    b->data[b->len++] = c;
+    a_sbldaddlen(b, 1);
+    b->data[b->len-1] = c;
 }
 
 EXPORT void a_sbldaddcstr(a_string_builder b, const char *str)
@@ -232,5 +229,34 @@ EXPORT a_string a_leftpad(a_string s, int num, char c)
     for (int i = 0; i < num - s->len; i++)
         a_sbldaddchar(b, c);
     a_sbldadds(b, s);
+    return a_sbld2s(b);
+}
+
+EXPORT a_string a_c2Hex(unsigned char c)
+{
+    unsigned char buffer[3];
+    unsigned char c2;
+
+    buffer[2] = '\0';
+    for (int i = 1; i >= 0; i--) {
+        c2 = c & 0x0f;
+        if (c2 < 10)
+            buffer[i] = c2 + '0';
+        else
+            buffer[i] = c2 - 10 + 'A';
+        c >>= 4;
+    }
+
+    return a_cstr2s((char*)buffer);
+}
+
+EXPORT a_string a_s2Hex(a_string s)
+{
+    a_string_builder b = a_sbldcreate();
+
+    for (int i = 0; i < s->len; i++) {
+        a_sbldadds(b, a_c2Hex(s->data[i]));
+    }
+
     return a_sbld2s(b);
 }

@@ -1,10 +1,11 @@
 include_dirs = -I../external/Criterion/include -I../include
 CFLAGS = -O3 -Wall -pedantic -s -g $(include_dirs)
+LDFLAGS = -lcrypto
 
 # UNIX
 all: get main
 main: main.o ../build/static/libaqua.a ../external/Criterion/build/libcriterion.so
-	gcc -o main main.o ../build/static/libaqua.a ../external/Criterion/build/libcriterion.so
+	gcc -o main main.o ../build/static/libaqua.a ../external/Criterion/build/libcriterion.so $(LDFLAGS) $(LDPATH)
 %.o: %.c
 	gcc -c $< $(CFLAGS)
 get:

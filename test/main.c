@@ -234,14 +234,20 @@ Test(a_GetTime, 1)
     printf("%s\n", s->data);
 }
 
-Test(a_GetRandomSeed, 1)
+Test(a_s2Hex, 1)
 {
-    unsigned int seed;
-    a_string error;
+    a_string s;
+    a_string s2;
 
-    if (!a_GetRandomSeed(&seed, &error)) {
-        fprintf(stderr, "%s\n", error->data);
-    } else {
-        printf("%u\n", seed);
-    }
+    s = a_cstr2s("\x1F");
+    s2 = a_s2Hex(s);
+    cr_assert(strcmp(s2->data, "1F") == 0, "Check that it is 1F");
+    a_sdestroy(s);
+    a_sdestroy(s2);
+
+    s = a_cstr2s("\xAA\x55");
+    s2 = a_s2Hex(s);
+    cr_assert(strcmp(s2->data, "AA55") == 0, "Check that it is 1F");
+    a_sdestroy(s);
+    a_sdestroy(s2);
 }
